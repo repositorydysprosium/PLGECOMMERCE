@@ -1,75 +1,70 @@
 package br.com.plataformalancamento.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_ESTADO")
-public class EstadoModel implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+@Table(name = "TB_CIDADE")
+public class CidadeModel implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@Column(name = "NOME", length = 50, unique = true, nullable = false)
+	@Column(name = "NOME", length = 50, nullable = false)
 	private String nome;
 	
-	@Column(name = "SIGLA", length = 2, unique = true, nullable = true)
-	private String sigla;
+	@ManyToOne
+	@JoinColumn(name = "ID_ESTADO")
+	private EstadoModel estadoModel;
 	
-	@OneToMany(mappedBy = "estadoModel")
-	private List<CidadeModel> cidadeModelList = new ArrayList<>();
+	public CidadeModel() { }
 	
-	public EstadoModel() {}
-	
-	public EstadoModel(Long codigo, String nome, String sigla) {
+	public CidadeModel(Long codigo, String nome, EstadoModel estadoModel) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
-		this.sigla = sigla;
+		this.estadoModel = estadoModel;
 	}
 
-	public Long getCodigo() {
-		return codigo;
-	}
-	
-	public void setCodigo(Long codigo) {
+	public CidadeModel(Long codigo, String nome) {
+		super();
 		this.codigo = codigo;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	
-	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
-	public String getSigla() {
-		return sigla;
-	}
-	
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
+	public Long getCodigo() {
+		return codigo;
 	}
 
-	public List<CidadeModel> getCidadeModelList() {
-		return cidadeModelList;
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 
-	public void setCidadeModelList(List<CidadeModel> cidadeModelList) {
-		this.cidadeModelList = cidadeModelList;
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public EstadoModel getEstadoModel() {
+		return estadoModel;
+	}
+
+	public void setEstadoModel(EstadoModel estadoModel) {
+		this.estadoModel = estadoModel;
 	}
 
 	@Override
@@ -88,7 +83,7 @@ public class EstadoModel implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EstadoModel other = (EstadoModel) obj;
+		CidadeModel other = (CidadeModel) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
@@ -96,5 +91,5 @@ public class EstadoModel implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
