@@ -90,7 +90,8 @@ public class Application implements CommandLineRunner {
 		EnderecoModel enderecoModel01 = new EnderecoModel(null, "Quadra", "403", "Conjunto A Apartamento", "Paranoá", "72.007-001", cidadeModel04, clienteModel01);
 		EnderecoModel enderecoModel02 = new EnderecoModel(null, "Quadra", "13", "207 conjunto A Lote", "Santa Maria", "72.507-401", cidadeModel05, clienteModel01);
 		
-			clienteModel01.getEnderecoModelList().addAll(Arrays.asList(enderecoModel01, enderecoModel02));
+			clienteModel01.getEnderecoModelList().add(enderecoModel01);
+			clienteModel01.getEnderecoModelList().add(enderecoModel02);
 			
 			clienteRepository.saveAll(Arrays.asList(clienteModel01));
 			enderecoRepository.saveAll(Arrays.asList(enderecoModel01, enderecoModel02));

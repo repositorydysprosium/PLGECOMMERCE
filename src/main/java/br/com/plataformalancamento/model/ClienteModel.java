@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.plataformalancamento.enumeration.TipoClienteEnumeration;
 
 @Entity
@@ -42,7 +44,8 @@ public class ClienteModel implements Serializable {
 	
 	private TipoClienteEnumeration tipoClienteEnumeration;
 	
-	@OneToMany(mappedBy = "cidadeModel")
+	@JsonManagedReference
+	@OneToMany(mappedBy = "clienteModel")
 	private List<EnderecoModel> enderecoModelList = new ArrayList<>();
 	
 	@ElementCollection
@@ -52,13 +55,13 @@ public class ClienteModel implements Serializable {
 	
 	public ClienteModel() { }
 
-	public ClienteModel(Long codigo, String nome, String email, String cpf, TipoClienteEnumeration tipoClienteEnumeration) {
+	public ClienteModel(Long codigo, String nome, String email, String cpf, TipoClienteEnumeration identificadorTipoClienteEnumeration) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
 		this.email = email;
 		this.cpf = cpf;
-		this.identificadorTipoClienteEnumeration = tipoClienteEnumeration.getCodigo();
+		this.identificadorTipoClienteEnumeration = identificadorTipoClienteEnumeration.getCodigo();
 	}
 
 	public Long getCodigo() {
