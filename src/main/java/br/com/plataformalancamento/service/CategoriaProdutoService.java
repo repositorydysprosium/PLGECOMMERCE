@@ -25,5 +25,10 @@ public class CategoriaProdutoService {
 		return categoriaProdutoModelOptional.orElseThrow( () -> 
 			new ObjectNotFoundException("Objeto (" + CategoriaProdutoModel.class.getName() + ") com o código de identificação (ID = " + codigo + ") não pode ser encontrado!"));
 	}
+	
+	public CategoriaProdutoModel persist(CategoriaProdutoModel categoriaProdutoModel) {
+		categoriaProdutoModel.setCodigo(null);
+		return categoriaProdutoRepository.save(categoriaProdutoModel);
+	}
 
 }
