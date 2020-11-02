@@ -30,5 +30,10 @@ public class CategoriaProdutoService {
 		categoriaProdutoModel.setCodigo(null);
 		return categoriaProdutoRepository.save(categoriaProdutoModel);
 	}
+	
+	public CategoriaProdutoModel merge(CategoriaProdutoModel categoriaProdutoModel) {
+		findOne(categoriaProdutoModel.getCodigo());
+		return categoriaProdutoRepository.save(categoriaProdutoModel);
+	}
 
 }
