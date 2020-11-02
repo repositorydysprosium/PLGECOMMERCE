@@ -53,6 +53,9 @@ public class ClienteModel implements Serializable {
 	@Column(name = "NUMERO_TELEFONE", unique = true, nullable = true)
 	private Set<String> telefoneList = new HashSet<>();
 	
+	@OneToMany(mappedBy = "clienteModel")
+	private List<PedidoModel> pedidoModelList = new ArrayList<>();
+	
 	public ClienteModel() { }
 
 	public ClienteModel(Long codigo, String nome, String email, String cpf, TipoClienteEnumeration identificadorTipoClienteEnumeration) {
@@ -126,6 +129,14 @@ public class ClienteModel implements Serializable {
 
 	public void setTelefoneList(Set<String> telefoneList) {
 		this.telefoneList = telefoneList;
+	}
+
+	public List<PedidoModel> getPedidoModelList() {
+		return pedidoModelList;
+	}
+
+	public void setPedidoModelList(List<PedidoModel> pedidoModelList) {
+		this.pedidoModelList = pedidoModelList;
 	}
 
 	@Override

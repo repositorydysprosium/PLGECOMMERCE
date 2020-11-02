@@ -8,18 +8,26 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.plataformalancamento.enumeration.TipoClienteEnumeration;
+import br.com.plataformalancamento.enumeration.TipoEstadoPagamentoEnumeration;
 import br.com.plataformalancamento.model.CategoriaProdutoModel;
 import br.com.plataformalancamento.model.CidadeModel;
 import br.com.plataformalancamento.model.ClienteModel;
 import br.com.plataformalancamento.model.EnderecoModel;
 import br.com.plataformalancamento.model.EstadoModel;
+import br.com.plataformalancamento.model.PagamentoBoletoBancarioModel;
+import br.com.plataformalancamento.model.PagamentoCartaoModel;
+import br.com.plataformalancamento.model.PagamentoModel;
+import br.com.plataformalancamento.model.PedidoModel;
 import br.com.plataformalancamento.model.ProdutoModel;
 import br.com.plataformalancamento.repository.CategoriaProdutoRepository;
 import br.com.plataformalancamento.repository.CidadeRepository;
 import br.com.plataformalancamento.repository.ClienteRepository;
 import br.com.plataformalancamento.repository.EnderecoRepository;
 import br.com.plataformalancamento.repository.EstadoRepository;
+import br.com.plataformalancamento.repository.PagamentoRepository;
+import br.com.plataformalancamento.repository.PedidoRepository;
 import br.com.plataformalancamento.repository.ProdutoRepository;
+import br.com.plataformalancamento.utility.DateUtility;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -41,6 +49,12 @@ public class Application implements CommandLineRunner {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -95,6 +109,19 @@ public class Application implements CommandLineRunner {
 			
 			clienteRepository.saveAll(Arrays.asList(clienteModel01));
 			enderecoRepository.saveAll(Arrays.asList(enderecoModel01, enderecoModel02));
+			
+		PedidoModel pedidoModel01 = new PedidoModel(null, DateUtility.recuperarDataFormato("30/09/2017 10:32"), clienteModel01, enderecoModel01);
+		PedidoModel pedidoModel02 = new PedidoModel(null, DateUtility.recuperarDataFormato("30/09/2017 10:32"), clienteModel01, enderecoModel02);
+		
+		PagamentoModel pagamentoModel01 = new PagamentoCartaoModel(null, TipoEstadoPagamentoEnumeration.QUITADO, pedidoModel01, 6);
+			pedidoModel01.setPagamentoModel(pagamentoModel01);
+		PagamentoModel pagamentoModel02 = new PagamentoBoletoBancarioModel(null, TipoEstadoPagamentoEnumeration.PENDENTE, pedidoModel02, DateUtility.recuperarDataFormato("30/09/2018 00:00"), null);
+			pedidoModel02.setPagamentoModel(pagamentoModel02);
+			
+			clienteModel01.getPedidoModelList().addAll(Arrays.asList(pedidoModel01, pedidoModel02));
+			
+			pedidoRepository.saveAll(Arrays.asList(pedidoModel01, pedidoModel02));
+			pagamentoRepository.saveAll(Arrays.asList(pagamentoModel01, pagamentoModel02));
 		
 	}
 
