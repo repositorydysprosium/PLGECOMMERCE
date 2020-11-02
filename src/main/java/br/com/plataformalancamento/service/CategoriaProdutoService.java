@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.exception.ObjectNotFoundException;
@@ -34,6 +35,15 @@ public class CategoriaProdutoService {
 	public CategoriaProdutoModel merge(CategoriaProdutoModel categoriaProdutoModel) {
 		findOne(categoriaProdutoModel.getCodigo());
 		return categoriaProdutoRepository.save(categoriaProdutoModel);
+	}
+	
+	public void delete(Long codigo) {
+		findOne(codigo);
+		try {
+			categoriaProdutoRepository.deleteById(codigo);
+		} catch (DataIntegrityViolationException dataIntegrityViolationException) {
+			
+		}
 	}
 
 }
