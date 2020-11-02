@@ -2,7 +2,9 @@ package br.com.plataformalancamento.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -39,6 +42,9 @@ public class ProdutoModel implements Serializable {
 			   inverseJoinColumns = @JoinColumn(name = "ID_CATEGORIA"))
 	private List<CategoriaProdutoModel> categoriaProdutoModelList = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "codigo.produtoModel")
+	private Set<ItemPedidoModel> itemPedidoModelList = new HashSet<>();
+	
 	public ProdutoModel() { }
 
 	public ProdutoModel(Long codigo, String nome, Double preco) {
@@ -46,6 +52,14 @@ public class ProdutoModel implements Serializable {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.preco = preco;
+	}
+	
+	public List<PedidoModel> recuperarPedidoProduto() {
+		List<PedidoModel> pedidoModelList = new ArrayList<PedidoModel>();
+		for(ItemPedidoModel itemPedidoModelResult : itemPedidoModelList) {
+			pedidoModelList.add(itemPedidoModelResult.getPedidoModel());
+		}
+		return pedidoModelList;
 	}
 
 	public Long getCodigo() {
@@ -78,6 +92,14 @@ public class ProdutoModel implements Serializable {
 
 	public void setCategoriaProdutoModelList(List<CategoriaProdutoModel> categoriaProdutoModelList) {
 		this.categoriaProdutoModelList = categoriaProdutoModelList;
+	}
+
+	public Set<ItemPedidoModel> getItemPedidoModelList() {
+		return itemPedidoModelList;
+	}
+
+	public void setItemPedidoModelList(Set<ItemPedidoModel> itemPedidoModelList) {
+		this.itemPedidoModelList = itemPedidoModelList;
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import br.com.plataformalancamento.model.CidadeModel;
 import br.com.plataformalancamento.model.ClienteModel;
 import br.com.plataformalancamento.model.EnderecoModel;
 import br.com.plataformalancamento.model.EstadoModel;
+import br.com.plataformalancamento.model.ItemPedidoModel;
 import br.com.plataformalancamento.model.PagamentoBoletoBancarioModel;
 import br.com.plataformalancamento.model.PagamentoCartaoModel;
 import br.com.plataformalancamento.model.PagamentoModel;
@@ -24,6 +25,7 @@ import br.com.plataformalancamento.repository.CidadeRepository;
 import br.com.plataformalancamento.repository.ClienteRepository;
 import br.com.plataformalancamento.repository.EnderecoRepository;
 import br.com.plataformalancamento.repository.EstadoRepository;
+import br.com.plataformalancamento.repository.ItemPedidoRepository;
 import br.com.plataformalancamento.repository.PagamentoRepository;
 import br.com.plataformalancamento.repository.PedidoRepository;
 import br.com.plataformalancamento.repository.ProdutoRepository;
@@ -55,6 +57,9 @@ public class Application implements CommandLineRunner {
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -122,7 +127,20 @@ public class Application implements CommandLineRunner {
 			
 			pedidoRepository.saveAll(Arrays.asList(pedidoModel01, pedidoModel02));
 			pagamentoRepository.saveAll(Arrays.asList(pagamentoModel01, pagamentoModel02));
+			
+		ItemPedidoModel itemPedidoModel01 = new ItemPedidoModel(pedidoModel01, produtoModel01, 0.00, 1, 2000.00);
+		ItemPedidoModel itemPedidoModel02 = new ItemPedidoModel(pedidoModel01, produtoModel03, 0.00, 2, 80.00);
+		ItemPedidoModel itemPedidoModel03 = new ItemPedidoModel(pedidoModel02, produtoModel02, 100.00, 1, 800.00);
 		
+			pedidoModel01.getItemPedidoModelList().addAll(Arrays.asList(itemPedidoModel01, itemPedidoModel02));
+			pedidoModel02.getItemPedidoModelList().addAll(Arrays.asList(itemPedidoModel03));
+			
+			produtoModel01.getItemPedidoModelList().addAll(Arrays.asList(itemPedidoModel01));
+			produtoModel02.getItemPedidoModelList().addAll(Arrays.asList(itemPedidoModel03));
+			produtoModel03.getItemPedidoModelList().addAll(Arrays.asList(itemPedidoModel02));
+			
+		
+			itemPedidoRepository.saveAll(Arrays.asList(itemPedidoModel01, itemPedidoModel02, itemPedidoModel03));
 	}
 
 }

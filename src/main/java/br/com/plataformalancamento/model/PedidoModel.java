@@ -2,6 +2,8 @@ package br.com.plataformalancamento.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -37,6 +40,9 @@ public class PedidoModel implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ID_ENDERECO")
 	private EnderecoModel enderecoModel;
+	
+	@OneToMany(mappedBy = "codigo.pedidoModel")
+	private Set<ItemPedidoModel> itemPedidoModelList = new HashSet<>();
 	
 	public PedidoModel() { }
 	
@@ -95,6 +101,14 @@ public class PedidoModel implements Serializable {
 
 	public void setEnderecoModel(EnderecoModel enderecoModel) {
 		this.enderecoModel = enderecoModel;
+	}
+
+	public Set<ItemPedidoModel> getItemPedidoModelList() {
+		return itemPedidoModelList;
+	}
+
+	public void setItemPedidoModelList(Set<ItemPedidoModel> itemPedidoModelList) {
+		this.itemPedidoModelList = itemPedidoModelList;
 	}
 
 	@Override
