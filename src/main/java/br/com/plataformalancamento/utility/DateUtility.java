@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class DateUtility {
 
+	public static final String DD_MM_YYYY = "dd/MM/yyyy";
 	public static final String DD_MM_YYYY_HH_MM_SS = "dd/MM/yyyy HH:mm";
 	
 	public static Date recuperarDataFormato(String formatoDataHora) {

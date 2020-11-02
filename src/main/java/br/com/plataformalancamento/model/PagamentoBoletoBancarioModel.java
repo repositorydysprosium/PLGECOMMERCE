@@ -6,7 +6,10 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.plataformalancamento.enumeration.TipoEstadoPagamentoEnumeration;
+import br.com.plataformalancamento.utility.DateUtility;
 
 @Entity
 @Table(name = "TB_PAGAMENTO_BOLETO_BANCARIO")
@@ -14,8 +17,10 @@ public class PagamentoBoletoBancarioModel extends PagamentoModel implements Seri
 
 	private static final long serialVersionUID = 1L;
 	
+	@JsonFormat(pattern = DateUtility.DD_MM_YYYY)
 	private Date dataHoraVencimento;
 	
+	@JsonFormat(pattern = DateUtility.DD_MM_YYYY)
 	private Date dataHoraPagamento;
 	
 	public PagamentoBoletoBancarioModel() { }

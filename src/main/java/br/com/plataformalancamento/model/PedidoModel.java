@@ -17,6 +17,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import br.com.plataformalancamento.utility.DateUtility;
+
 @Entity
 @Table(name = "TB_PEDIDO")
 public class PedidoModel implements Serializable {
@@ -27,12 +32,15 @@ public class PedidoModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@JsonFormat(pattern = DateUtility.DD_MM_YYYY_HH_MM_SS)
 	@Column(name = "DATA_HORA", nullable = false)
 	private Date dataHora;
 	
+	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedidoModel")
 	private PagamentoModel pagamentoModel;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
 	private ClienteModel clienteModel;
