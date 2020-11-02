@@ -16,8 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.plataformalancamento.enumeration.TipoClienteEnumeration;
 
@@ -45,7 +44,6 @@ public class ClienteModel implements Serializable {
 	
 	private TipoClienteEnumeration tipoClienteEnumeration;
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy = "clienteModel")
 	private List<EnderecoModel> enderecoModelList = new ArrayList<>();
 	
@@ -54,7 +52,7 @@ public class ClienteModel implements Serializable {
 	@Column(name = "NUMERO_TELEFONE", unique = true, nullable = true)
 	private Set<String> telefoneList = new HashSet<>();
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "clienteModel")
 	private List<PedidoModel> pedidoModelList = new ArrayList<>();
 	

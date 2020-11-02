@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TB_ESTADO")
@@ -30,7 +30,7 @@ public class EstadoModel implements Serializable {
 	@Column(name = "SIGLA", length = 2, unique = true, nullable = true)
 	private String sigla;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "estadoModel")
 	private List<CidadeModel> cidadeModelList = new ArrayList<>();
 	

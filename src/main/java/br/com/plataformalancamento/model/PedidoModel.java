@@ -36,11 +36,9 @@ public class PedidoModel implements Serializable {
 	@Column(name = "DATA_HORA", nullable = false)
 	private Date dataHora;
 	
-	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedidoModel")
 	private PagamentoModel pagamentoModel;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
 	private ClienteModel clienteModel;

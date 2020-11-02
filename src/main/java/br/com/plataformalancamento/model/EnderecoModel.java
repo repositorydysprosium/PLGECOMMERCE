@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TB_ENDERECO")
@@ -42,7 +42,7 @@ public class EnderecoModel implements Serializable {
 	@JoinColumn(name = "ID_CIDADE")
 	private CidadeModel cidadeModel;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE")
 	private ClienteModel clienteModel;
