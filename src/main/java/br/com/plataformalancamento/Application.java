@@ -71,10 +71,10 @@ public class Application implements CommandLineRunner {
 		CategoriaProdutoModel categoriaProdutoModel01 = new CategoriaProdutoModel(null, "Informática");
 		CategoriaProdutoModel categoriaProdutoModel02 = new CategoriaProdutoModel(null, "Escritório");
 		
-		for(int index = 0 ; index <= 10000 ; index++) {
-			CategoriaProdutoModel categoriaProdutoModelResult = new CategoriaProdutoModel(null, "Categoria Produto Teste " + index);
-			categoriaProdutoRepository.saveAll(Arrays.asList(categoriaProdutoModelResult));
-		}
+//		for(int index = 0 ; index <= 10000 ; index++) {
+//			CategoriaProdutoModel categoriaProdutoModelResult = new CategoriaProdutoModel(null, "Categoria Produto Teste " + index);
+//			categoriaProdutoRepository.saveAll(Arrays.asList(categoriaProdutoModelResult));
+//		}
 		
 		ProdutoModel produtoModel01 = new ProdutoModel(null, "Computador", 2000.00);
 		ProdutoModel produtoModel02 = new ProdutoModel(null, "Impressora", 800.00);

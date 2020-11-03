@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -44,14 +46,16 @@ public class CategoriaProdutoResource {
 	}
 	
 	@PostMapping("/persist")
-	public ResponseEntity<Void> persist(@RequestBody CategoriaProdutoModel categoriaProdutoModel) {
+	public ResponseEntity<Void> persist(@Valid @RequestBody CategoriaProdutoDTO categoriaProdutoDTO) {
+		CategoriaProdutoModel categoriaProdutoModel = categoriaProdutoService.instanciarCategoriaProduto(categoriaProdutoDTO);
 		categoriaProdutoModel = categoriaProdutoService.persist(categoriaProdutoModel);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{codigo}").buildAndExpand(categoriaProdutoModel.getCodigo()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping("/merge/{codigo}")
-	public ResponseEntity<Void> merge(@RequestBody CategoriaProdutoModel categoriaProdutoModel, @PathVariable Long codigo) {
+	public ResponseEntity<Void> merge(@Valid @RequestBody CategoriaProdutoDTO categoriaProdutoDTO, @PathVariable Long codigo) {
+		CategoriaProdutoModel categoriaProdutoModel = categoriaProdutoService.instanciarCategoriaProduto(categoriaProdutoDTO);
 		categoriaProdutoModel.setCodigo(codigo);
 		categoriaProdutoModel = categoriaProdutoService.merge(categoriaProdutoModel);
 		return ResponseEntity.noContent().build();

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import br.com.plataformalancamento.dto.CategoriaProdutoDTO;
 import br.com.plataformalancamento.exception.DataIntegrityViolationException;
 import br.com.plataformalancamento.exception.ObjectNotFoundException;
 import br.com.plataformalancamento.model.CategoriaProdutoModel;
@@ -52,6 +53,10 @@ public class CategoriaProdutoService {
 	public Page<CategoriaProdutoModel> findPage(Integer pagina, Integer quantidadePagina, String campoOrdenacao, String direction) {
 		PageRequest pageRequest = PageRequest.of(pagina, quantidadePagina, Direction.valueOf(direction), campoOrdenacao);
 		return categoriaProdutoRepository.findAll(pageRequest);
+	}
+	
+	public CategoriaProdutoModel instanciarCategoriaProduto(CategoriaProdutoDTO categoriaProdutoDTO) {
+		return new CategoriaProdutoModel(categoriaProdutoDTO.getCodigo(), categoriaProdutoDTO.getNome());
 	}
 
 }
