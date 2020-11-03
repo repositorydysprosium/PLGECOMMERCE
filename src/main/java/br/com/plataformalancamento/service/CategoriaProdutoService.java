@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.exception.DataIntegrityViolationException;
@@ -44,6 +47,11 @@ public class CategoriaProdutoService {
 		} catch (org.springframework.dao.DataIntegrityViolationException dataIntegrityViolationException) {
 			throw new DataIntegrityViolationException("Não é possível excluir uma determinada categoria que possuí produtos vinculados!");
 		}
+	}
+	
+	public Page<CategoriaProdutoModel> findPage(Integer pagina, Integer quantidadePagina, String campoOrdenacao, String direction) {
+		PageRequest pageRequest = PageRequest.of(pagina, quantidadePagina, Direction.valueOf(direction), campoOrdenacao);
+		return categoriaProdutoRepository.findAll(pageRequest);
 	}
 
 }
