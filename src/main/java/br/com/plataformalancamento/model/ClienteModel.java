@@ -36,10 +36,10 @@ public class ClienteModel implements Serializable {
 	@Column(name = "EMAIL", unique = true, nullable = false)
 	private String email;
 	
-	@Column(name = "CPF_CNPJ", unique = true, nullable = false)
+	@Column(name = "CPF_CNPJ", unique = true, nullable = true)
 	private String cpf;
 	
-	@Column(name = "IDENTIFICADOR_TIPO_CLIENTE", unique = true, nullable = false)
+	@Column(name = "IDENTIFICADOR_TIPO_CLIENTE", unique = true, nullable = true)
 	private Integer identificadorTipoClienteEnumeration;
 	
 	private TipoClienteEnumeration tipoClienteEnumeration;
@@ -64,7 +64,14 @@ public class ClienteModel implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpf = cpf;
-		this.identificadorTipoClienteEnumeration = identificadorTipoClienteEnumeration.getCodigo();
+		this.identificadorTipoClienteEnumeration = (identificadorTipoClienteEnumeration == null) ? null : identificadorTipoClienteEnumeration.getCodigo();
+	}
+	
+	public ClienteModel(Long codigo, String nome, String email) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.email = email;
 	}
 
 	public Long getCodigo() {
