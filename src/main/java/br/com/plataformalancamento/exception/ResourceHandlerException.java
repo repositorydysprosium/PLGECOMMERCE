@@ -16,4 +16,10 @@ public class ResourceHandlerException {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroPadraoException);
 	}
 	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ErroPadraoException> erroReferencia(DataIntegrityViolationException objectNotFoundException, HttpServletRequest httpServletRequest) {
+		ErroPadraoException erroPadraoException = new ErroPadraoException(HttpStatus.BAD_REQUEST.value(), objectNotFoundException.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroPadraoException);
+	}
+	
 }
