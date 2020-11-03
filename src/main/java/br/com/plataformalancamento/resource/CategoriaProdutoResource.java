@@ -2,6 +2,7 @@ package br.com.plataformalancamento.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.plataformalancamento.dto.CategoriaProdutoDTO;
 import br.com.plataformalancamento.model.CategoriaProdutoModel;
 import br.com.plataformalancamento.service.CategoriaProdutoService;
 
@@ -26,8 +28,11 @@ public class CategoriaProdutoResource {
 	private CategoriaProdutoService categoriaProdutoService;
 	
 	@GetMapping("/findall")
-	public List<CategoriaProdutoModel> findAll() {
-		return categoriaProdutoService.findAll();
+	public ResponseEntity<List<CategoriaProdutoDTO>> findAll() {
+		List<CategoriaProdutoModel> categoriaProdutoModelList = categoriaProdutoService.findAll();
+		List<CategoriaProdutoDTO> categoriaProdutoDTOList = categoriaProdutoModelList
+				.stream().map( categoriaProdutoModelResult -> new CategoriaProdutoDTO(categoriaProdutoModelResult)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(categoriaProdutoDTOList);
 	}
 	
 	@GetMapping("/findone/{codigo}")
