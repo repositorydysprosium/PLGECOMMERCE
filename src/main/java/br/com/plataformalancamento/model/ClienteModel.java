@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -49,7 +50,7 @@ public class ClienteModel implements Serializable {
 	@Transient
 	private TipoClienteEnumeration tipoClienteEnumeration;
 	
-	@OneToMany(mappedBy = "clienteModel")
+	@OneToMany(mappedBy = "clienteModel", cascade = CascadeType.ALL)
 	private List<EnderecoModel> enderecoModelList = new ArrayList<>();
 	
 	@ElementCollection
