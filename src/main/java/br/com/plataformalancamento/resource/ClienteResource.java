@@ -47,9 +47,9 @@ public class ClienteResource {
 	
 	@PostMapping("/persist")
 	public ResponseEntity<Void> persist(@Valid @RequestBody ClienteDTO clienteDTO) {
-		ClienteModel clienteModel = clienteService.instanciarCliente(clienteDTO);
+		ClienteModel clienteModel = clienteService.instanciarClientePersistencia(clienteDTO);
 		clienteModel = clienteService.persist(clienteModel);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{codigo}").buildAndExpand(clienteModel.getCodigo()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/cliente/findone/{codigo}").buildAndExpand(clienteModel.getCodigo()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

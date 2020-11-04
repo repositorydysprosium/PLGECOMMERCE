@@ -43,6 +43,11 @@ public class CidadeModel implements Serializable {
 		this.nome = nome;
 	}
 	
+	public CidadeModel(Long codigo) {
+		super();
+		this.codigo = codigo;
+	}
+	
 	public Long getCodigo() {
 		return codigo;
 	}

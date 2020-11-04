@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,18 +31,22 @@ public class ClienteModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@Column(name = "NOME", unique = true, nullable = false)
+	// TODO -- Alterar "unique" para "true" apos os testes
+	@Column(name = "NOME", unique = false, nullable = false)
 	private String nome;
 	
-	@Column(name = "EMAIL", unique = true, nullable = false)
+	// TODO -- Alterar "unique" para "true" apos os testes
+	@Column(name = "EMAIL", unique = false, nullable = false)
 	private String email;
 	
-	@Column(name = "CPF_CNPJ", unique = true, nullable = true)
+	// TODO -- Alterar "unique" para "true" apos os testes
+	@Column(name = "CPF_CNPJ", unique = false, nullable = true)
 	private String cpf;
 	
-	@Column(name = "IDENTIFICADOR_TIPO_CLIENTE", unique = true, nullable = true)
+	@Column(name = "IDENTIFICADOR_TIPO_CLIENTE", nullable = true)
 	private Integer identificadorTipoClienteEnumeration;
 	
+	@Transient
 	private TipoClienteEnumeration tipoClienteEnumeration;
 	
 	@OneToMany(mappedBy = "clienteModel")
@@ -49,7 +54,7 @@ public class ClienteModel implements Serializable {
 	
 	@ElementCollection
 	@CollectionTable(name = "TB_TELEFONE")
-	@Column(name = "NUMERO_TELEFONE", unique = true, nullable = true)
+	@Column(name = "NUMERO_TELEFONE", nullable = true)
 	private Set<String> telefoneList = new HashSet<>();
 	
 	@JsonIgnore

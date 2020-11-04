@@ -49,10 +49,20 @@ public class EnderecoModel implements Serializable {
 	
 	public EnderecoModel() { }
 
-	public EnderecoModel(Long codigo, String logradouro, String numero, String complemento, String bairro, String cep,
-			CidadeModel cidadeModel, ClienteModel clienteModel) {
+	public EnderecoModel(Long codigo, String logradouro, String numero, String complemento, String bairro, String cep, CidadeModel cidadeModel, ClienteModel clienteModel) {
 		super();
 		this.codigo = codigo;
+		this.logradouro = logradouro;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cep = cep;
+		this.cidadeModel = cidadeModel;
+		this.clienteModel = clienteModel;
+	}
+	
+	public EnderecoModel(String logradouro, String numero, String complemento, String bairro, String cep, CidadeModel cidadeModel, ClienteModel clienteModel) {
+		super();
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;

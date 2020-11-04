@@ -15,12 +15,28 @@ public class ClienteDTO implements Serializable {
 	
 	private Long codigo;
 	
-	@NotEmpty(message = "Campo de preenchimento obrigatório!") 
+	@NotEmpty(message = "Campo de preenchimento obrigatório!")
 	@Length(min = 5, max = 120, message = "O tamanho deve ter entre {min} e {max} caracteres!")
 	private String nome;
 	
 	@Email(message = "O e-mail informado não é valido!")
 	private String email;
+	
+	private String cpfcnpj;
+	
+	private Integer identificadorTipoClienteEnumeration;
+	
+	private String logradouro;
+	private String numero;
+	private String complemento;
+	private String bairro;
+	private String cep;
+	
+	private String telefoneCelular;
+	private String telefoneFixo;
+	private String telefoneFixoComercial;
+	
+	private Long codigoCidade;
 	
 	public ClienteDTO() { }
 	
@@ -28,6 +44,29 @@ public class ClienteDTO implements Serializable {
 		codigo = clienteModel.getCodigo();
 		nome = clienteModel.getNome();
 		email = clienteModel.getEmail();
+	}
+
+	public ClienteDTO(Long codigo,
+			@NotEmpty(message = "Campo de preenchimento obrigatório!") @Length(min = 5, max = 120, message = "O tamanho deve ter entre {min} e {max} caracteres!") String nome,
+			@Email(message = "O e-mail informado não é valido!") String email, String cpfcnpj,
+			Integer identificadorTipoClienteEnumeration, String logradouro, String numero, String complemento,
+			String bairro, String cep, String telefoneCelular, String telefoneCelularWatsapp, String telefoneFixo,
+			String telefoneFixoComercial, Long codigoCidade) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.email = email;
+		this.cpfcnpj = cpfcnpj;
+		this.identificadorTipoClienteEnumeration = identificadorTipoClienteEnumeration;
+		this.logradouro = logradouro;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cep = cep;
+		this.telefoneCelular = telefoneCelular;
+		this.telefoneFixo = telefoneFixo;
+		this.telefoneFixoComercial = telefoneFixoComercial;
+		this.codigoCidade = codigoCidade;
 	}
 
 	public Long getCodigo() {
@@ -52,6 +91,94 @@ public class ClienteDTO implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCpfcnpj() {
+		return cpfcnpj;
+	}
+
+	public void setCpfcnpj(String cpfcnpj) {
+		this.cpfcnpj = cpfcnpj;
+	}
+
+	public Integer getIdentificadorTipoClienteEnumeration() {
+		return identificadorTipoClienteEnumeration;
+	}
+
+	public void setIdentificadorTipoClienteEnumeration(Integer identificadorTipoClienteEnumeration) {
+		this.identificadorTipoClienteEnumeration = identificadorTipoClienteEnumeration;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getTelefoneCelular() {
+		return telefoneCelular;
+	}
+
+	public void setTelefoneCelular(String telefoneCelular) {
+		this.telefoneCelular = telefoneCelular;
+	}
+
+	public String getTelefoneFixo() {
+		return telefoneFixo;
+	}
+
+	public void setTelefoneFixo(String telefoneFixo) {
+		this.telefoneFixo = telefoneFixo;
+	}
+
+	public String getTelefoneFixoComercial() {
+		return telefoneFixoComercial;
+	}
+
+	public void setTelefoneFixoComercial(String telefoneFixoComercial) {
+		this.telefoneFixoComercial = telefoneFixoComercial;
+	}
+
+	public Long getCodigoCidade() {
+		return codigoCidade;
+	}
+
+	public void setCodigoCidade(Long codigoCidade) {
+		this.codigoCidade = codigoCidade;
 	}
 	
 }

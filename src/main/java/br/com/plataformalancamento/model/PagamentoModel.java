@@ -40,7 +40,7 @@ public abstract class PagamentoModel implements Serializable {
 	public PagamentoModel(Long codigo, TipoEstadoPagamentoEnumeration estadoPagamentoEnumeration, PedidoModel pedidoModel) {
 		super();
 		this.codigo = codigo;
-		this.tipoEstadoPagamentoEnumeration = estadoPagamentoEnumeration.getCodigo();
+		this.tipoEstadoPagamentoEnumeration = (estadoPagamentoEnumeration == null) ? null : estadoPagamentoEnumeration.getCodigo();
 		this.pedidoModel = pedidoModel;
 	}
 

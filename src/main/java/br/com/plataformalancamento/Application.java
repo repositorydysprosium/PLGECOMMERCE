@@ -99,13 +99,14 @@ public class Application implements CommandLineRunner {
 		CidadeModel cidadeModel03 = new CidadeModel(null, "Campinas", estadoModel02);
 		CidadeModel cidadeModel04 = new CidadeModel(null, "Santa Maria", estadoModel03);
 		CidadeModel cidadeModel05 = new CidadeModel(null, "Paranoá", estadoModel03);
+		CidadeModel cidadeModel06 = new CidadeModel(null, "Taguatinga", estadoModel03);
 		
 		estadoModel01.getCidadeModelList().addAll(Arrays.asList(cidadeModel01));
 		estadoModel02.getCidadeModelList().addAll(Arrays.asList(cidadeModel02, cidadeModel03));
-		estadoModel03.getCidadeModelList().addAll(Arrays.asList(cidadeModel04, cidadeModel05));
+		estadoModel03.getCidadeModelList().addAll(Arrays.asList(cidadeModel04, cidadeModel05, cidadeModel06));
 		
 		estadoRepository.saveAll(Arrays.asList(estadoModel01, estadoModel02, estadoModel03));
-		cidadeRepository.saveAll(Arrays.asList(cidadeModel01, cidadeModel02, cidadeModel03, cidadeModel04, cidadeModel05));
+		cidadeRepository.saveAll(Arrays.asList(cidadeModel01, cidadeModel02, cidadeModel03, cidadeModel04, cidadeModel05, cidadeModel06));
 		
 		ClienteModel clienteModel01 = new ClienteModel(null, "Thereza das Graças Rodrigues", "thereza.rodrigues@hotmail.com.br", "000.000.000-00", TipoClienteEnumeration.PESSOA_FISICA);
 			clienteModel01.getTelefoneList().addAll(Arrays.asList("(11) 1111-1111"));

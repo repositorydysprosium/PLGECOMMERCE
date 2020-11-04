@@ -3,6 +3,8 @@ package br.com.plataformalancamento.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,16 +12,23 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.dto.ClienteDTO;
+import br.com.plataformalancamento.enumeration.TipoClienteEnumeration;
 import br.com.plataformalancamento.exception.DataIntegrityViolationException;
 import br.com.plataformalancamento.exception.ObjectNotFoundException;
+import br.com.plataformalancamento.model.CidadeModel;
 import br.com.plataformalancamento.model.ClienteModel;
+import br.com.plataformalancamento.model.EnderecoModel;
 import br.com.plataformalancamento.repository.ClienteRepository;
+import br.com.plataformalancamento.repository.EnderecoRepository;
 
 @Service
 public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public List<ClienteModel> findAll() {
 		return clienteRepository.findAll();
@@ -31,9 +40,11 @@ public class ClienteService {
 			new ObjectNotFoundException("Objeto (" + ClienteModel.class.getName() + ") com o código de identificação (ID = " + codigo + ") não pode ser encontrado!"));
 	}
 	
+	@Transactional
 	public ClienteModel persist(ClienteModel clienteModel) {
-		clienteModel.setCodigo(null);
-		return clienteRepository.save(clienteModel);
+		clienteModel = clienteRepository.save(clienteModel);
+		enderecoRepository.saveAll(clienteModel.getEnderecoModelList());
+		return clienteModel;
 	}
 	
 	public ClienteModel merge(ClienteModel clienteModel) {
@@ -64,6 +75,22 @@ public class ClienteService {
 	
 	public ClienteModel instanciarCliente(ClienteDTO clienteDTO) {
 		return new ClienteModel(clienteDTO.getCodigo(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null);
+	}
+	
+	public ClienteModel instanciarClientePersistencia(ClienteDTO clienteDTO) {
+		ClienteModel clienteModel = new ClienteModel(clienteDTO.getCodigo(), clienteDTO.getNome(), clienteDTO.getEmail(), clienteDTO.getCpfcnpj(), TipoClienteEnumeration.converterEnumeration(clienteDTO.getIdentificadorTipoClienteEnumeration()));
+		EnderecoModel enderecoModel = new EnderecoModel(clienteDTO.getLogradouro(), clienteDTO.getNumero(), clienteDTO.getComplemento(), clienteDTO.getBairro(), clienteDTO.getCep(), new CidadeModel(clienteDTO.getCodigoCidade()), clienteModel);
+			clienteModel.getEnderecoModelList().add(enderecoModel);
+			if(!clienteDTO.getTelefoneCelular().isEmpty()) {
+				clienteModel.getTelefoneList().add(clienteDTO.getTelefoneCelular());
+			}
+			if(!clienteDTO.getTelefoneFixo().isEmpty()) {
+				clienteModel.getTelefoneList().add(clienteDTO.getTelefoneFixo());
+			}
+			if(!clienteDTO.getTelefoneFixo().isEmpty()) {
+				clienteModel.getTelefoneList().add(clienteDTO.getTelefoneFixoComercial());
+			}
+		return clienteModel;
 	}
 	
 }

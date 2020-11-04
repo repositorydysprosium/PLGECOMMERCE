@@ -37,8 +37,13 @@ public class CategoriaProdutoService {
 	}
 	
 	public CategoriaProdutoModel merge(CategoriaProdutoModel categoriaProdutoModel) {
-		findOne(categoriaProdutoModel.getCodigo());
-		return categoriaProdutoRepository.save(categoriaProdutoModel);
+		CategoriaProdutoModel categoriaProdutoModelResult = findOne(categoriaProdutoModel.getCodigo());
+		atualizadorDadosCliente(categoriaProdutoModelResult, categoriaProdutoModel);
+		return categoriaProdutoRepository.save(categoriaProdutoModelResult);
+	}
+	
+	private void atualizadorDadosCliente(CategoriaProdutoModel categoriaProdutoModelNovo, CategoriaProdutoModel categoriaProdutoModel) {
+		categoriaProdutoModelNovo.setNome(categoriaProdutoModel.getNome());
 	}
 	
 	public void delete(Long codigo) {
