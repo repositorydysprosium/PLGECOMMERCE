@@ -4,11 +4,14 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.plataformalancamento.annotation.ClienteRegraNegocioAnnotation;
 import br.com.plataformalancamento.model.ClienteModel;
 
+@ClienteRegraNegocioAnnotation
 public class ClienteDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,16 +25,24 @@ public class ClienteDTO implements Serializable {
 	@Email(message = "O e-mail informado não é valido!")
 	private String email;
 	
+	@NotEmpty(message = "Campo de preenchimento obrigatório!")
 	private String cpfcnpj;
 	
+	@NotNull(message = "Campo de preenchimento obrigatório!")
 	private Integer identificadorTipoClienteEnumeration;
 	
+	@NotEmpty(message = "Campo de preenchimento obrigatório!")
 	private String logradouro;
+	
+	@NotEmpty(message = "Campo de preenchimento obrigatório!")
 	private String numero;
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message = "Campo de preenchimento obrigatório!")
 	private String cep;
 	
+	@NotEmpty(message = "Campo de preenchimento obrigatório!")
 	private String telefoneCelular;
 	private String telefoneFixo;
 	private String telefoneFixoComercial;
