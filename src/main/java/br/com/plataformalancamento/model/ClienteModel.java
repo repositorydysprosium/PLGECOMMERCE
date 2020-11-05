@@ -36,8 +36,7 @@ public class ClienteModel implements Serializable {
 	@Column(name = "NOME", unique = false, nullable = false)
 	private String nome;
 	
-	// TODO -- Alterar "unique" para "true" apos os testes
-	@Column(name = "EMAIL", unique = false, nullable = false)
+	@Column(name = "EMAIL", unique = true, nullable = false)
 	private String email;
 	
 	// TODO -- Alterar "unique" para "true" apos os testes
