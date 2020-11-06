@@ -70,6 +70,10 @@ public class Application implements CommandLineRunner {
 		
 		CategoriaProdutoModel categoriaProdutoModel01 = new CategoriaProdutoModel(null, "Informática");
 		CategoriaProdutoModel categoriaProdutoModel02 = new CategoriaProdutoModel(null, "Escritório");
+		CategoriaProdutoModel categoriaProdutoModel03 = new CategoriaProdutoModel(null, "Eletrodoméstico");
+		CategoriaProdutoModel categoriaProdutoModel04 = new CategoriaProdutoModel(null, "Cama Mesa e Banho");
+		CategoriaProdutoModel categoriaProdutoModel05 = new CategoriaProdutoModel(null, "Higiene Pessoal");
+		CategoriaProdutoModel categoriaProdutoModel06 = new CategoriaProdutoModel(null, "Decoração");
 		
 //		for(int index = 0 ; index <= 10000 ; index++) {
 //			CategoriaProdutoModel categoriaProdutoModelResult = new CategoriaProdutoModel(null, "Categoria Produto Teste " + index);
@@ -79,16 +83,35 @@ public class Application implements CommandLineRunner {
 		ProdutoModel produtoModel01 = new ProdutoModel(null, "Computador", 2000.00);
 		ProdutoModel produtoModel02 = new ProdutoModel(null, "Impressora", 800.00);
 		ProdutoModel produtoModel03 = new ProdutoModel(null, "Mouse Óptico", 80.00);
+		ProdutoModel produtoModel04 = new ProdutoModel(null, "Macbook Pro 16''", 80.00);
+		ProdutoModel produtoModel05 = new ProdutoModel(null, "Macbook Air 13''", 80.00);
+		ProdutoModel produtoModel06 = new ProdutoModel(null, "Monitor Gamer", 80.00);
+		ProdutoModel produtoModel07 = new ProdutoModel(null, "Toalha de Mesa", 80.00);
+		ProdutoModel produtoModel08 = new ProdutoModel(null, "TV Full True Color HD 32'", 80.00);
+		ProdutoModel produtoModel09 = new ProdutoModel(null, "Shamppo Anticaspa", 80.00);
+		ProdutoModel produtoModel10 = new ProdutoModel(null, "Abajour", 80.00);
 		
-		categoriaProdutoModel01.getProdutoModelList().addAll(Arrays.asList(produtoModel01, produtoModel02, produtoModel03));
+		categoriaProdutoModel01.getProdutoModelList().addAll(Arrays.asList(produtoModel01, produtoModel02, produtoModel03, produtoModel04, produtoModel05, produtoModel06));
 		categoriaProdutoModel02.getProdutoModelList().addAll(Arrays.asList(produtoModel02));
+		categoriaProdutoModel03.getProdutoModelList().addAll(Arrays.asList(produtoModel08));
+		categoriaProdutoModel04.getProdutoModelList().addAll(Arrays.asList(produtoModel07));
+		categoriaProdutoModel05.getProdutoModelList().addAll(Arrays.asList(produtoModel09));
+		categoriaProdutoModel06.getProdutoModelList().addAll(Arrays.asList(produtoModel10));
 		
 		produtoModel01.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel01));
 		produtoModel02.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel01, categoriaProdutoModel02));
 		produtoModel03.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel01));
+		
+		produtoModel04.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel01));
+		produtoModel05.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel01));
+		produtoModel06.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel01));
+		produtoModel07.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel04));
+		produtoModel08.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel03));
+		produtoModel09.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel05));
+		produtoModel10.getCategoriaProdutoModelList().addAll(Arrays.asList(categoriaProdutoModel06));
 
-		categoriaProdutoRepository.saveAll(Arrays.asList(categoriaProdutoModel01, categoriaProdutoModel02));
-		produtoRepository.saveAll(Arrays.asList(produtoModel01, produtoModel02, produtoModel03));
+		categoriaProdutoRepository.saveAll(Arrays.asList(categoriaProdutoModel01, categoriaProdutoModel02, categoriaProdutoModel03, categoriaProdutoModel04, categoriaProdutoModel05, categoriaProdutoModel06, categoriaProdutoModel06, categoriaProdutoModel06));
+		produtoRepository.saveAll(Arrays.asList(produtoModel01, produtoModel02, produtoModel03, produtoModel04, produtoModel05, produtoModel06, produtoModel07, produtoModel08, produtoModel09, produtoModel10));
 		
 		EstadoModel estadoModel01 = new EstadoModel(null, "Minas Gerais", "MG");
 		EstadoModel estadoModel02 = new EstadoModel(null, "São Paulo", "SP");
