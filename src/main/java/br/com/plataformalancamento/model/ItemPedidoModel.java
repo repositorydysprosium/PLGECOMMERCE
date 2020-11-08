@@ -42,10 +42,6 @@ public class ItemPedidoModel implements Serializable {
 		this.preco = preco;
 	}
 	
-	public Double getSubtotal() {
-		return (this.preco - this.valorDesconto) * quantidade;
-	}
-	
 	@JsonIgnore
 	public PedidoModel getPedidoModel() {
 		return codigo.getPedidoModel();
