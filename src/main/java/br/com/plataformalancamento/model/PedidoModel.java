@@ -18,7 +18,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.plataformalancamento.utility.DateUtility;
 
@@ -67,6 +66,14 @@ public class PedidoModel implements Serializable {
 		this.pagamentoModel = pagamentoModel;
 		this.clienteModel = clienteModel;
 		this.enderecoModel = enderecoModel;
+	}
+	
+	public Double getValorTotalPedido() {
+		Double somaPedidos = 0.0;
+		for(ItemPedidoModel itemPedidoModelResultado : getItemPedidoModelList()) {
+			somaPedidos += itemPedidoModelResultado.getSubtotal();
+		}
+		return somaPedidos;
 	}
 
 	public Long getCodigo() {
