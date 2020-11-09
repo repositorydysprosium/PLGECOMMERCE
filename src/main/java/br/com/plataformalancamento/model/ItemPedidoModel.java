@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,6 +24,10 @@ public class ItemPedidoModel implements Serializable {
 	private Integer quantidade;
 	
 	private Double preco;
+	
+	// TODO
+	@Transient
+	private ProdutoModel produtoModel;
 	
 	public ItemPedidoModel() { }
 
@@ -51,8 +56,28 @@ public class ItemPedidoModel implements Serializable {
 		return codigo.getPedidoModel();
 	}
 	
+	public void setPedido(PedidoModel pedidoModel) {
+		codigo.setPedidoModel(pedidoModel);
+	}
+	
+	public void setProduto(ProdutoModel produtoModel) {
+		codigo.setProdutoModel(produtoModel);
+	}
+	
+//	public ProdutoModel getProdutoModel() {
+//		return codigo.getProdutoModel();
+//	}
+//
+//	public void setProdutoModel(ProdutoModel produtoModel) {
+//		this.produtoModel = produtoModel;
+//	}
+
 	public ProdutoModel getProdutoModel() {
-		return codigo.getProdutoModel();
+		return produtoModel;
+	}
+
+	public void setProdutoModel(ProdutoModel produtoModel) {
+		this.produtoModel = produtoModel;
 	}
 
 	public Double getValorDesconto() {

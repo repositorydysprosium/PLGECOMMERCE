@@ -5,10 +5,13 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import br.com.plataformalancamento.enumeration.TipoEstadoPagamentoEnumeration;
 
 @Entity
 @Table(name = "TB_PAGAMENTO_CARTAO")
+@JsonTypeName("pagamentoCartao")
 public class PagamentoCartaoModel extends PagamentoModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
