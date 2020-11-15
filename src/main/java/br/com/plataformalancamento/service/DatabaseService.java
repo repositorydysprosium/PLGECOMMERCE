@@ -68,7 +68,7 @@ public class DatabaseService {
 		CategoriaProdutoModel categoriaProdutoModel05 = new CategoriaProdutoModel(null, "Higiene Pessoal");
 		CategoriaProdutoModel categoriaProdutoModel06 = new CategoriaProdutoModel(null, "Decoração");
 		
-		for(int index = 0 ; index <= 10000 ; index++) {
+		for(int index = 0 ; index <= 1 ; index++) {
 			CategoriaProdutoModel categoriaProdutoModelResult = new CategoriaProdutoModel(null, "Categoria Produto Teste " + index);
 			categoriaProdutoRepository.saveAll(Arrays.asList(categoriaProdutoModelResult));
 		}
