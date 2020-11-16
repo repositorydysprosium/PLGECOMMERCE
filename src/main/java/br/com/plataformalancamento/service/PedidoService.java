@@ -35,6 +35,9 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
 	public List<PedidoModel> findAll() {
 		return pedidoRepository.findAll();
 	}
@@ -48,6 +51,7 @@ public class PedidoService {
 	public PedidoModel persist(PedidoModel pedidoModel) {
 		pedidoModel.setCodigo(null);
 		pedidoModel.setDataHora(new Date());
+		pedidoModel.setClienteModel(clienteService.findOne(pedidoModel.getClienteModel().getCodigo()));
 		pedidoModel.getPagamentoModel().setTipoEstadoPagamentoEnumeration(TipoEstadoPagamentoEnumeration.PENDENTE);
 		pedidoModel.getPagamentoModel().setPedidoModel(pedidoModel);
 			if(pedidoModel.getPagamentoModel() instanceof PagamentoBoletoBancarioModel) {
@@ -58,11 +62,13 @@ public class PedidoService {
 		pagamentoRepository.save(pedidoModel.getPagamentoModel());
 		for(ItemPedidoModel itemPedidoModelResultado : pedidoModel.getItemPedidoModelList()) {
 			itemPedidoModelResultado.setValorDesconto(0D);
+			itemPedidoModelResultado.setProdutoModel(produtoService.findOne(itemPedidoModelResultado.getProdutoModel().getCodigo()));
 			itemPedidoModelResultado.setPreco(produtoService.findOne(itemPedidoModelResultado.getProdutoModel().getCodigo()).getPreco());
 			itemPedidoModelResultado.getCodigo().setProdutoModel(itemPedidoModelResultado.getProdutoModel());
 			itemPedidoModelResultado.setPedido(pedidoModel);
 		}
 		itemPedidoRepository.saveAll(pedidoModel.getItemPedidoModelList());
+		System.out.println(pedidoModel);
 		return pedidoModel;
 	}
 	

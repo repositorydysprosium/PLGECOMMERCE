@@ -19,7 +19,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.plataformalancamento.utility.DateUtility;
+import br.com.plataformalancamento.utility.ConfiguracaoDataUtility;
+import br.com.plataformalancamento.utility.ConfiguracaoMonetariaUtility;
 
 @Entity
 @Table(name = "TB_PEDIDO")
@@ -31,7 +32,7 @@ public class PedidoModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@JsonFormat(pattern = DateUtility.DD_MM_YYYY_HH_MM_SS)
+	@JsonFormat(pattern = ConfiguracaoDataUtility.DD_MM_YYYY_HH_MM)
 	@Column(name = "DATA_HORA", nullable = false)
 	private Date dataHora;
 	
@@ -147,6 +148,22 @@ public class PedidoModel implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+			builder.append("Pedido \n");
+			builder.append("Número do Pedido: " + codigo + "\n");
+			builder.append("Data do Pedido: " + ConfiguracaoDataUtility.recuperarDataFormato(this.getDataHora(), ConfiguracaoDataUtility.DD_MM_YYYY_HH_MM) + "\n");
+			builder.append("Nome do Cliente: " + getClienteModel().getNome() + "\n");
+			builder.append("Situação do Pagamento: " + getPagamentoModel().getEstadoPagamentoEnumeration().getDescricao() + "\n");
+			builder.append("Itens do Pagamento: \n");
+			for (ItemPedidoModel itemPedidoModelResultado : getItemPedidoModelList()) {
+				builder.append(itemPedidoModelResultado.toString() + "\n");
+			}
+			builder.append("Valor Total do Pedido: " + ConfiguracaoMonetariaUtility.configurarValorEmReal(getValorTotalPedido()) + "\n");
+		return builder.toString();
 	}
 	
 }

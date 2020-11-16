@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import br.com.plataformalancamento.enumeration.TipoEstadoPagamentoEnumeration;
-import br.com.plataformalancamento.utility.DateUtility;
+import br.com.plataformalancamento.utility.ConfiguracaoDataUtility;
 
 @Entity
 @Table(name = "TB_PAGAMENTO_BOLETO_BANCARIO")
@@ -19,10 +19,10 @@ public class PagamentoBoletoBancarioModel extends PagamentoModel implements Seri
 
 	private static final long serialVersionUID = 1L;
 	
-	@JsonFormat(pattern = DateUtility.DD_MM_YYYY)
+	@JsonFormat(pattern = ConfiguracaoDataUtility.DD_MM_YYYY)
 	private Date dataHoraVencimento;
 	
-	@JsonFormat(pattern = DateUtility.DD_MM_YYYY)
+	@JsonFormat(pattern = ConfiguracaoDataUtility.DD_MM_YYYY)
 	private Date dataHoraPagamento;
 	
 	public PagamentoBoletoBancarioModel() { }

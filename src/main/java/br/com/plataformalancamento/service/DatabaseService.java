@@ -27,7 +27,7 @@ import br.com.plataformalancamento.repository.ItemPedidoRepository;
 import br.com.plataformalancamento.repository.PagamentoRepository;
 import br.com.plataformalancamento.repository.PedidoRepository;
 import br.com.plataformalancamento.repository.ProdutoRepository;
-import br.com.plataformalancamento.utility.DateUtility;
+import br.com.plataformalancamento.utility.ConfiguracaoDataUtility;
 
 @Service
 public class DatabaseService {
@@ -137,12 +137,12 @@ public class DatabaseService {
 			clienteRepository.saveAll(Arrays.asList(clienteModel01));
 			enderecoRepository.saveAll(Arrays.asList(enderecoModel01, enderecoModel02));
 			
-		PedidoModel pedidoModel01 = new PedidoModel(null, DateUtility.recuperarDataFormato("30/09/2017 10:32"), clienteModel01, enderecoModel01);
-		PedidoModel pedidoModel02 = new PedidoModel(null, DateUtility.recuperarDataFormato("30/09/2017 10:32"), clienteModel01, enderecoModel02);
+		PedidoModel pedidoModel01 = new PedidoModel(null, ConfiguracaoDataUtility.recuperarDataFormato("30/09/2017 10:32"), clienteModel01, enderecoModel01);
+		PedidoModel pedidoModel02 = new PedidoModel(null, ConfiguracaoDataUtility.recuperarDataFormato("30/09/2017 10:32"), clienteModel01, enderecoModel02);
 		
 		PagamentoModel pagamentoModel01 = new PagamentoCartaoModel(null, TipoEstadoPagamentoEnumeration.QUITADO, pedidoModel01, 6);
 			pedidoModel01.setPagamentoModel(pagamentoModel01);
-		PagamentoModel pagamentoModel02 = new PagamentoBoletoBancarioModel(null, TipoEstadoPagamentoEnumeration.PENDENTE, pedidoModel02, DateUtility.recuperarDataFormato("30/09/2018 00:00"), null);
+		PagamentoModel pagamentoModel02 = new PagamentoBoletoBancarioModel(null, TipoEstadoPagamentoEnumeration.PENDENTE, pedidoModel02, ConfiguracaoDataUtility.recuperarDataFormato("30/09/2018 00:00"), null);
 			pedidoModel02.setPagamentoModel(pagamentoModel02);
 			
 			clienteModel01.getPedidoModelList().addAll(Arrays.asList(pedidoModel01, pedidoModel02));

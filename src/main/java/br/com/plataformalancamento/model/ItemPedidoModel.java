@@ -9,6 +9,8 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.plataformalancamento.utility.ConfiguracaoMonetariaUtility;
+
 @Entity
 @Table(name = "TB_ITEM_PEDIDO")
 public class ItemPedidoModel implements Serializable {
@@ -135,6 +137,14 @@ public class ItemPedidoModel implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+			builder.append("Quantidade: " + getQuantidade() + "\n");
+			builder.append("Preço Unitário: " + ConfiguracaoMonetariaUtility.configurarValorEmReal(getPreco()) + "\n");
+		return builder.toString();
 	}
 
 }
