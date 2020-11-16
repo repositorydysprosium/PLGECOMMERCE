@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-public interface ServiceInterface<O> {
+public interface InterfaceService<O> {
 	public List<O> findAll();
 	public O findOne(Long codigo);
 	public O persist(O model);

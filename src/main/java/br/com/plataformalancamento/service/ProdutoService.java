@@ -17,7 +17,7 @@ import br.com.plataformalancamento.repository.CategoriaProdutoRepository;
 import br.com.plataformalancamento.repository.ProdutoRepository;
 
 @Service
-public class ProdutoService implements ServiceInterface<ProdutoModel> {
+public class ProdutoService implements InterfaceService<ProdutoModel> {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
