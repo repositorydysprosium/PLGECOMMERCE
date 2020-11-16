@@ -24,4 +24,8 @@ public class EstadoService {
 		return estadoModelOptional.orElse(null);
 	}
 	
+	public EstadoModel persist(EstadoModel estadoModel) {
+		return estadoRepository.save(estadoModel);
+	}
+	
 }
