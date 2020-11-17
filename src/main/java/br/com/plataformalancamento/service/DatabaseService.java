@@ -124,7 +124,7 @@ public class DatabaseService {
 		estadoRepository.saveAll(Arrays.asList(estadoModel01, estadoModel02, estadoModel03));
 		cidadeRepository.saveAll(Arrays.asList(cidadeModel01, cidadeModel02, cidadeModel03, cidadeModel04, cidadeModel05, cidadeModel06));
 		
-		ClienteModel clienteModel01 = new ClienteModel(null, "Thereza das Graças Rodrigues", "thereza.rodrigues@hotmail.com.br", "000.000.000-00", TipoClienteEnumeration.PESSOA_FISICA);
+		ClienteModel clienteModel01 = new ClienteModel(null, "Thereza das Graças Rodrigues", "josequintino@hotmail.com.br", "000.000.000-00", TipoClienteEnumeration.PESSOA_FISICA);
 			clienteModel01.getTelefoneList().addAll(Arrays.asList("(11) 1111-1111"));
 			clienteModel01.getTelefoneList().addAll(Arrays.asList("(22) 2222-2222"));
 			

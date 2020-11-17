@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.plataformalancamento.service.DatabaseService;
+import br.com.plataformalancamento.service.EmailSMTPService;
 import br.com.plataformalancamento.service.EmailService;
-import br.com.plataformalancamento.service.MockEmailService;
 
 @Configuration
 @Profile(value = "development")
@@ -31,7 +31,7 @@ public class ProfileDevelopmentConfiguration {
 	
 	@Bean
 	public EmailService emailService() {
-		return new MockEmailService();
+		return new EmailSMTPService();
 	}
 	
 }

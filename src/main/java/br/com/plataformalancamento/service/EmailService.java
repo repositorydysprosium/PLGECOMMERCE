@@ -4,9 +4,11 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.model.PedidoModel;
 
+@Service
 public abstract class EmailService implements EmailInterfaceService {
 	
 	@Value("${default.sender}")
