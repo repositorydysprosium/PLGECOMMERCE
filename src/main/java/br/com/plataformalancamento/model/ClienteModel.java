@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.plataformalancamento.enumeration.TipoClienteEnumeration;
+import br.com.plataformalancamento.enumeration.TipoPerfilUsuarioEnumeration;
 
 @Entity
 @Table(name = "TB_CLIENTE")
@@ -47,7 +50,7 @@ public class ClienteModel implements Serializable {
 	@Column(name = "CPF_CNPJ", unique = false, nullable = true)
 	private String cpf;
 	
-	@Column(name = "IDENTIFICADOR_TIPO_CLIENTE", nullable = true)
+	@Column(name = "ID_TIPO_PESSOA", nullable = true)
 	private Integer identificadorTipoClienteEnumeration;
 	
 	@Transient
@@ -64,6 +67,10 @@ public class ClienteModel implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "clienteModel")
 	private List<PedidoModel> pedidoModelList = new ArrayList<>();
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "TB_PERFIL_USUARIO")
+	private Set<Integer> perfilUsuarioEnumerationList = new HashSet<>();
 	
 	public ClienteModel() { }
 
@@ -91,6 +98,14 @@ public class ClienteModel implements Serializable {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.email = email;
+	}
+	
+	public Set<TipoPerfilUsuarioEnumeration> getPerfilUsuarioEnumeration() {
+		return perfilUsuarioEnumerationList.stream().map( perfilRetorno -> TipoPerfilUsuarioEnumeration.converterEnumeration(perfilRetorno)).collect(Collectors.toSet());
+	}
+	
+	public void adicionarPerfilUsuarioEnumeration(TipoPerfilUsuarioEnumeration tipoPerfilUsuarioEnumeration) {
+		perfilUsuarioEnumerationList.add(tipoPerfilUsuarioEnumeration.getCodigo());
 	}
 
 	public Long getCodigo() {
@@ -171,6 +186,14 @@ public class ClienteModel implements Serializable {
 
 	public void setPedidoModelList(List<PedidoModel> pedidoModelList) {
 		this.pedidoModelList = pedidoModelList;
+	}
+	
+	public Set<Integer> getPerfilUsuarioEnumerationList() {
+		return perfilUsuarioEnumerationList;
+	}
+
+	public void setPerfilUsuarioEnumerationList(Set<Integer> perfilUsuarioEnumerationList) {
+		this.perfilUsuarioEnumerationList = perfilUsuarioEnumerationList;
 	}
 
 	@Override

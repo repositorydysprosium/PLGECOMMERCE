@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.enumeration.TipoClienteEnumeration;
 import br.com.plataformalancamento.enumeration.TipoEstadoPagamentoEnumeration;
+import br.com.plataformalancamento.enumeration.TipoPerfilUsuarioEnumeration;
 import br.com.plataformalancamento.model.CategoriaProdutoModel;
 import br.com.plataformalancamento.model.CidadeModel;
 import br.com.plataformalancamento.model.ClienteModel;
@@ -131,6 +132,12 @@ public class DatabaseService {
 		ClienteModel clienteModel01 = new ClienteModel(null, "Thereza das Graças Rodrigues", "josequintino@hotmail.com.br", "000.000.000-00", TipoClienteEnumeration.PESSOA_FISICA, bCryptPasswordEncoder.encode("@senhaacessosistema1_"));
 			clienteModel01.getTelefoneList().addAll(Arrays.asList("(11) 1111-1111"));
 			clienteModel01.getTelefoneList().addAll(Arrays.asList("(22) 2222-2222"));
+			clienteModel01.adicionarPerfilUsuarioEnumeration(TipoPerfilUsuarioEnumeration.PERFIL_CLIENTE);
+			
+		ClienteModel clienteModel02 = new ClienteModel(null, "Renata Rodrigues Silva", "renatarodrigues@outlook.com.br", "111.111.111-11", TipoClienteEnumeration.PESSOA_FISICA, bCryptPasswordEncoder.encode("@senhaacessosistema2_"));
+			clienteModel02.getTelefoneList().addAll(Arrays.asList("(11) 9999-9999"));
+			clienteModel02.getTelefoneList().addAll(Arrays.asList("(22) 8888-8888"));
+			clienteModel02.adicionarPerfilUsuarioEnumeration(TipoPerfilUsuarioEnumeration.PERFIL_ADMINISTRADOR);
 			
 		EnderecoModel enderecoModel01 = new EnderecoModel(null, "Quadra", "403", "Conjunto A Apartamento", "Paranoá", "72.007-001", cidadeModel04, clienteModel01);
 		EnderecoModel enderecoModel02 = new EnderecoModel(null, "Quadra", "13", "207 conjunto A Lote", "Santa Maria", "72.507-401", cidadeModel05, clienteModel01);
@@ -138,7 +145,9 @@ public class DatabaseService {
 			clienteModel01.getEnderecoModelList().add(enderecoModel01);
 			clienteModel01.getEnderecoModelList().add(enderecoModel02);
 			
-			clienteRepository.saveAll(Arrays.asList(clienteModel01));
+			clienteModel02.getEnderecoModelList().add(enderecoModel01);
+			
+			clienteRepository.saveAll(Arrays.asList(clienteModel01, clienteModel02));
 			enderecoRepository.saveAll(Arrays.asList(enderecoModel01, enderecoModel02));
 			
 		PedidoModel pedidoModel01 = new PedidoModel(null, ConfiguracaoDataUtility.recuperarDataFormato("30/09/2017 10:32"), clienteModel01, enderecoModel01);
