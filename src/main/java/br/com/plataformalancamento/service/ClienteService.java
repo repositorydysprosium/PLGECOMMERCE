@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.dto.ClienteDTO;
@@ -29,6 +30,9 @@ public class ClienteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	public List<ClienteModel> findAll() {
 		return clienteRepository.findAll();
@@ -78,7 +82,7 @@ public class ClienteService {
 	}
 	
 	public ClienteModel instanciarClientePersistencia(ClienteDTO clienteDTO) {
-		ClienteModel clienteModel = new ClienteModel(clienteDTO.getCodigo(), clienteDTO.getNome(), clienteDTO.getEmail(), clienteDTO.getCpfcnpj(), TipoClienteEnumeration.converterEnumeration(clienteDTO.getIdentificadorTipoClienteEnumeration()));
+		ClienteModel clienteModel = new ClienteModel(clienteDTO.getCodigo(), clienteDTO.getNome(), clienteDTO.getEmail(), clienteDTO.getCpfcnpj(), TipoClienteEnumeration.converterEnumeration(clienteDTO.getIdentificadorTipoClienteEnumeration()), bCryptPasswordEncoder.encode(clienteDTO.getSenha()));
 		EnderecoModel enderecoModel = new EnderecoModel(clienteDTO.getLogradouro(), clienteDTO.getNumero(), clienteDTO.getComplemento(), clienteDTO.getBairro(), clienteDTO.getCep(), new CidadeModel(clienteDTO.getCodigoCidade()), clienteModel);
 			clienteModel.getEnderecoModelList().add(enderecoModel);
 			if(!clienteDTO.getTelefoneCelular().isEmpty()) {

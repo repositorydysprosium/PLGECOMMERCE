@@ -25,6 +25,9 @@ public class ClienteDTO implements Serializable {
 	@Email(message = "O e-mail informado não é valido!")
 	private String email;
 	
+	@NotEmpty
+	private String senha;
+	
 	@NotEmpty(message = "Campo de preenchimento obrigatório!")
 	private String cpfcnpj;
 	
@@ -90,6 +93,14 @@ public class ClienteDTO implements Serializable {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public void setNome(String nome) {

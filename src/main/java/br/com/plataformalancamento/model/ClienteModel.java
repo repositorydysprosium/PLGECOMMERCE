@@ -39,6 +39,10 @@ public class ClienteModel implements Serializable {
 	@Column(name = "EMAIL", unique = true, nullable = false)
 	private String email;
 	
+	@JsonIgnore
+	@Column(name = "SENHA", unique = true, nullable = true)
+	private String senha;
+	
 	// TODO -- Alterar "unique" para "true" apos os testes
 	@Column(name = "CPF_CNPJ", unique = false, nullable = true)
 	private String cpf;
@@ -72,6 +76,16 @@ public class ClienteModel implements Serializable {
 		this.identificadorTipoClienteEnumeration = (identificadorTipoClienteEnumeration == null) ? null : identificadorTipoClienteEnumeration.getCodigo();
 	}
 	
+	public ClienteModel(Long codigo, String nome, String email, String cpf, TipoClienteEnumeration identificadorTipoClienteEnumeration, String senha) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.email = email;
+		this.cpf = cpf;
+		this.identificadorTipoClienteEnumeration = (identificadorTipoClienteEnumeration == null) ? null : identificadorTipoClienteEnumeration.getCodigo();
+		this.senha = senha;
+	}
+	
 	public ClienteModel(Long codigo, String nome, String email) {
 		super();
 		this.codigo = codigo;
@@ -101,6 +115,14 @@ public class ClienteModel implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getCpf() {

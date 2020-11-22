@@ -3,6 +3,7 @@ package br.com.plataformalancamento.service;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.plataformalancamento.enumeration.TipoClienteEnumeration;
@@ -58,6 +59,9 @@ public class DatabaseService {
 	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	public void instantiateTestDatabase() {
 		
@@ -124,7 +128,7 @@ public class DatabaseService {
 		estadoRepository.saveAll(Arrays.asList(estadoModel01, estadoModel02, estadoModel03));
 		cidadeRepository.saveAll(Arrays.asList(cidadeModel01, cidadeModel02, cidadeModel03, cidadeModel04, cidadeModel05, cidadeModel06));
 		
-		ClienteModel clienteModel01 = new ClienteModel(null, "Thereza das Graças Rodrigues", "josequintino@hotmail.com.br", "000.000.000-00", TipoClienteEnumeration.PESSOA_FISICA);
+		ClienteModel clienteModel01 = new ClienteModel(null, "Thereza das Graças Rodrigues", "josequintino@hotmail.com.br", "000.000.000-00", TipoClienteEnumeration.PESSOA_FISICA, bCryptPasswordEncoder.encode("@senhaacessosistema1_"));
 			clienteModel01.getTelefoneList().addAll(Arrays.asList("(11) 1111-1111"));
 			clienteModel01.getTelefoneList().addAll(Arrays.asList("(22) 2222-2222"));
 			
