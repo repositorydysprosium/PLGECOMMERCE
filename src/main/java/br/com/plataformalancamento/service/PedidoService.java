@@ -71,7 +71,8 @@ public class PedidoService {
 			itemPedidoModelResultado.setPedido(pedidoModel);
 		}
 		itemPedidoRepository.saveAll(pedidoModel.getItemPedidoModelList());
-		emailService.encaminharEmailConfirmacaoPedido(pedidoModel);
+//		emailService.encaminharEmailConfirmacaoPedido(pedidoModel);
+		emailService.encaminharEmailConfirmacaoPedidoHTML(pedidoModel);
 		return pedidoModel;
 	}
 	
